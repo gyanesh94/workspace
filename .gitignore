@@ -1,6 +1,8 @@
 ## OS
 .DS_Store
 
+## Specific Files
+filesAndFolders/renameFilesBasedONKeyConfig.py
 
 ## IDE
 .pyc

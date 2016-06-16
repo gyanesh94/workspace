@@ -1,0 +1,5 @@
+BASE_PATH = "./"
+NAME_FILE_PATH = BASE_PATH + "name.txt"
+EXTENSION = ".mp4"
+SPLIT_CONDITION = " "
+ADD_KEY_TO_NAME = True
