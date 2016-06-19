@@ -2,12 +2,28 @@
 
 import os
 from renameFilesBasedONKeyConfig import *
+from urlparse import urlparse
+import logging
 
+logging.basicConfig(filename=LOGGING_FILE_NAME, format=LOGGING_MESSAGE_FORMAT, datefmt=LOGGING_DATE_FORMAT, level=logging.DEBUG)
 nameMapping = {}
 
 
+def removeDuplicatesFromUrlTxt(key):
+    text = []
+    with open(URL_FILE_PATH, 'r') as urlData:
+        for url in urlData.readlines():
+            a = urlparse(url)
+            if key == a.path.split("/")[-1].replace(".mp4", ""):
+                continue
+            text.append(url)
+
+    with open(URL_FILE_PATH, 'w') as file:
+        file.writelines(text)
+
+
 def getNameMapping():
-    with open(NAME_FILE_PATH) as nameData:
+    with open(NAME_FILE_PATH, 'r') as nameData:
         for line in nameData.readlines():
             if line.strip == "":
                 continue
@@ -18,7 +34,8 @@ def getNameMapping():
             name = lineArray[1].strip()
             name = name.replace("/", " ").replace("#", " ").replace("$", " ").replace("\\", " ").replace("'", " ").replace('"', " ").replace("\n", " ")
             if key in nameMapping:
-                continue
+                logging.warn("{key} is duplicate".format(key=key))
+                removeDuplicatesFromUrlTxt(key)
             else:
                 if ADD_KEY_TO_NAME:
                     nameMapping[key] = "{key} {name}{extension}".format(key=key, name=name, extension=EXTENSION)
@@ -26,9 +43,8 @@ def getNameMapping():
                     nameMapping[key] = "{name}{extension}".format(name=name, extension=EXTENSION)
 
 
-def printUniqueNameList():
+def makeUniqueNameList():
     getNameMapping()
-    print nameMapping
     text = ""
     for key, name in nameMapping.iteritems():
         text = text + name.replace(EXTENSION, "") + "\n"
