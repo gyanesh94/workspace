@@ -3,7 +3,6 @@ NAME_FILE_PATH = BASE_PATH + "name.txt"
 EXTENSION = ".mp4"
 SPLIT_CONDITION = " "
 ADD_KEY_TO_NAME = True
-URL_FILE_PATH = BASE_PATH + 'ADM.txt'
 
 LOGGING_FILE_NAME = "error.log"
 LOGGING_MESSAGE_FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
