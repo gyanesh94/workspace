@@ -3,9 +3,11 @@
 
 ## Specific Files
 filesAndFolders/renameFilesBasedONKeyConfig.py
+CMakeLists.txt
 
 ## IDE
 .pyc
+.idea/
 
 
 ## android
